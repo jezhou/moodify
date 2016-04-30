@@ -1,7 +1,22 @@
 extends layout
 
 block content
-  h1= title
+  .title
+    h1= title
+
   p Welcome to #{title}
-  p wow i'm cool 
-  img(src="https://scontent.xx.fbcdn.net/t31.0-8/s960x960/12068684_10154052062952579_955995649248980769_o.jpg")
+  
+  .row
+    .col-md-6
+      p Picture to Insert
+      input(type='file')
+      img#myImg(src='#', alt='your image')
+
+    .col-md-6
+      p Emotion
+  
+  .row
+    iframe(src="https://embed.spotify.com/?uri=spotify%3Atrack%3A33Q6ldVXuJyQmqs8BmAa0k" width="300" height="80" frameborder="0" allowtransparency="true")
+
+  script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js")
+  script(src="./javascripts/upload.js")
