@@ -36,7 +36,7 @@ exports.analyzePhoto = function(imageURL, api_key, sender, callback, music) {
 
     if(typeof callback === "function"){
       console.log("EMOTION IS " + highestFaceEmotionKey);
-      callback(sender, "I found a face! The primary emotion I see is " + highestFaceEmotionKey + ". Here are some songs I'd recommend based on your mood.", messenger.sendSpotifyMessage);
+      callback(sender, "I found a face! The primary emotion I see is " + highestFaceEmotionKey + ". Here are some songs I'd recommend based on your mood.");
       music(highestFaceEmotionKey, sender, spotify.recommendSong, messenger.sendSpotifyMessage);
     }
   });
