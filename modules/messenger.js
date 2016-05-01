@@ -30,7 +30,7 @@ exports.sendTextMessage = function (sender, text, callback) {
   }
 }
 
-exports.sendImageMessage = function (sender, url, callback){
+exports.sendImageMessage = function (sender, url){
   messageData = {
     attachment: {
       type: 'image',
@@ -55,47 +55,39 @@ exports.sendImageMessage = function (sender, url, callback){
       console.log('Error: ', response.body.error);
     }
 
-    // FOR SPOTIFY
-    if(typeof callback === "function"){
-      callback(sender);
-    }
-
   });
 
 }
 
-exports.sendSpotifyMessage = function (sender) {
+exports.sendSpotifyMessage = function (sender, body) {
+
+  console.log(body.album);
+  console.log(body.artists);
+  console.log(body.name);
+
   messageData = {
     "attachment": {
       "type": "template",
       "payload": {
         "template_type": "generic",
         "elements": [{
-          "title": "First card",
-          "subtitle": "Element #1 of an hscroll",
+          "title": body.name,
+          "subtitle": "Artist",
           "image_url": "http://messengerdemo.parseapp.com/img/rift.png",
           "buttons": [{
             "type": "web_url",
-            "url": "https://www.messenger.com/",
+            "url": "https://open.spotify.com/embed?uri=" + body.uri,
             "title": "Web url"
           }, {
             "type": "postback",
             "title": "Postback",
             "payload": "Payload for first element in a generic bubble",
           }],
-        },{
-          "title": "Second card",
-          "subtitle": "Element #2 of an hscroll",
-          "image_url": "http://messengerdemo.parseapp.com/img/gearvr.png",
-          "buttons": [{
-            "type": "postback",
-            "title": "Postback",
-            "payload": "Payload for second element in a generic bubble",
-          }],
         }]
       }
     }
   };
+
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
     qs: {access_token:token},
