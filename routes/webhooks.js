@@ -7,7 +7,7 @@ router.get('/', function (req, res) {
     res.send(req.query['hub.challenge']);
   }
 
-  res.send('Error, wrong validation token. ' + process.env.FACEBOOK_VALIDATION_TOKEN);
+  res.send('Error, wrong validation token. ' + req.query['hub.verify_token']);
 })
 
 module.exports = router;
