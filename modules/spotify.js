@@ -28,13 +28,11 @@ exports.generateOAuthURL = function() {
 
   var stateKey = 'spotify_auth_state';
   var scopes = 'user-top-read user-follow-read user-library-read';
-  var state = generateRandomString(16);
 
   return 'https://accounts.spotify.com/authorize?' + qs.stringify({
     response_type: 'code',
     client_id: client_id,
     redirect_uri: redirect_uri,
-    state: state,
     scope: scopes
   });
 
