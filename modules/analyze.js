@@ -29,10 +29,10 @@ exports.analyzePhoto = function(imageURL, api_key, sender, callback) {
     }
 
     emotions = body[0];
-    highestEmotion = Object.keys(emotions).reduce(function(a, b){ return emotions[a] > emotions[b] ? a : b });
+    var highestFaceEmotion = Object.keys(emotions).reduce(function(a, b){ return emotions[a] > emotions[b] ? a : b });
 
     if(typeof callback === "function"){
-      callback(sender, "I found a face! It seems to be very " + highestEmotion + ". Here is a graph showing all of the emotions I see:");
+      callback(sender, "I found a face! It seems to be very " + highestFaceEmotion + ". Here is a graph showing all of the emotions I see:");
     }
   });
 };
@@ -52,9 +52,11 @@ exports.analyzeText = function(mytext, sender, callback) {
       else{
 
         emotions = tone.document_tone.tone_categories[0].tones;
-        highestEmotion = _.max(emotions, function(emotion){ return emotion.score});
+        highestTextEmotion = _.max(emotions, function(emotion){ return emotion.score});
 
-        callback(sender, "You seem to have a lot of " + highestEmotion.tone_id + "! Here is a graph showing all of your emotions:");
+
+
+        callback(sender, "You seem to have a lot of " + highestTextEmotion.tone_id + ". Here is a graph showing all of your emotions:");
       }
   });
 };
