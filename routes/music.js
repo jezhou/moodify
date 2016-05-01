@@ -3,7 +3,7 @@ var request       = require('request');
 var crypto        = require('crypto');
 var cookieParser  = require('cookie-parser');
 var qs            = require('querystring');
-var json          = require('jsonfile');
+var jsonfile          = require('jsonfile');
 
 var router = express.Router();
 
@@ -88,8 +88,10 @@ router.get('/callback', function(req, res) {
           refresh_token: body.refresh_token
         };
 
+        console.log(obj);
+
         // Shitty storage
-        json.writeFile(file, obj, function(err) {
+        jsonfile.writeFile(file, obj, function(err) {
           console.error(err)
         })
 
