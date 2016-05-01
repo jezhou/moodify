@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    title Moodify
+    link(href='../stylesheets/style.css', rel='stylesheet', type='text/css')
+    link(href='https://fonts.googleapis.com/css?family=Montserrat:400,700', rel='stylesheet', type='text/css')
+    script(src='http://code.jquery.com/jquery-latest.min.js', type='text/javascript')
+    script(src='../javascripts/typed.js', type='text/javascript')
+    script.
+      $(function(){
+      $(".element").typed({
+      strings: ["Click on me!", "Let's find you some good music!", "SirMixABot at your service."],
+      typeSpeed: 0
+      });
+      });
+  body
+    .splash
+      span.element.scrollText
+      h1.padCenter.title MixABot
+      a(href='http://www.facebook.com')
+        img.mascot(src='../images/mascot.png')
+      p.description
+        | A friendly bot to curate a playlist for your mood!
+        br
+        br
+        | Talk to MixABot and he will generate songs based on your emotions.
