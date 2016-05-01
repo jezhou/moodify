@@ -56,8 +56,8 @@ var seeds = [
   {"sadness": ["7pAT4dOUzjq8Ziap5ShIqC","19us48grixRwQkw1oRCFbp","0ENSn4fwAbCGeFGVUbXEU3"]},
   {"anger": ["7oK9VyNzrYvRFo7nQEYkWN","0x60P5taxdI5pcGbqbap6S","3K4HG9evC7dg3N0R9cYqk4"]}];
 
-var stripURI = function(uri) {
-  var splitURI = uri.split(":");
+var stripURI = function(url) {
+  var splitURI = url.split(":");
   return splitURI[splitURI.length - 1];
 };
 
@@ -76,7 +76,7 @@ exports.getTopTracks = function(emotion, callback){
     var items = body.items;
     // Get two random top tracks
     topTracks = [stripURI(items.pop(_.random(0, items.length))["uri"])];
-    topTracks.push(stripURI(items[_.random(0, items.length)]));
+    topTracks.push(stripURI(items[_.random(0, items.length)]["uri"]));
 
     callback(emotion, topTracks);
 
