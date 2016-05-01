@@ -14,7 +14,7 @@ var access_token, refresh_token;
  * @param  {number} length The length of the string
  * @return {string} The generated string
  */
-exports.generateRandomString = function(length) {
+generateRandomString = function(length) {
   var text = '';
   var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -29,16 +29,6 @@ exports.generateOAuthURL = function() {
   var stateKey = 'spotify_auth_state';
   var scopes = 'user-read-private user-read-email playlist-read-private user-top-read playlist-read-collaborative user-follow-read user-library-read';
   var state = generateRandomString(16);
-  res.cookie(stateKey, state);
-
-  res.redirect('https://accounts.spotify.com/authorize?' +
-    qs.stringify({
-      response_type: 'code',
-      client_id: client_id,
-      redirect_uri: redirect_uri,
-      state: state,
-      scope: scopes
-    }));
 
   return 'https://accounts.spotify.com/authorize?' + qs.stringify({
     response_type: 'code',
@@ -47,5 +37,5 @@ exports.generateOAuthURL = function() {
     state: state,
     scope: scopes
   });
-  
+
 }
