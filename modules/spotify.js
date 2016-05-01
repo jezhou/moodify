@@ -6,6 +6,8 @@ var cookieParser  = require('cookie-parser');
 var qs            = require('querystring');
 var jsonfile      = require('jsonfile');
 
+var _ = require('underscore');
+
 var client_id = process.env.SPOTIFY_CLIENT_ID;
 var client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 var redirect_uri = process.env.SPOTIFY_REDIRECT_URL;
@@ -65,7 +67,12 @@ exports.getTopTracks = function(){
 
   // use the access token to access the Spotify Web API
   request.get(options, function(error, response, body) {
-    console.log(body);
+    var items = body.items;
+    // Get two random top tracks
+    var topTracks = [items.pop(_.random(0, items.length))["uri"]];
+    topTracks.push(items[_.random(0, items.length)]["uri"]);
+
+    console.log(topTracks);
   });
 };
 
