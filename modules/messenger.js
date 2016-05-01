@@ -59,6 +59,11 @@ exports.sendImageMessage = function (sender, url){
 
 }
 
+var stripURI = function(url) {
+  var splitURI = url.split(":");
+  return splitURI[splitURI.length - 1];
+};
+
 exports.sendSpotifyMessage = function (sender, body) {
 
   console.log(body);
@@ -76,8 +81,8 @@ exports.sendSpotifyMessage = function (sender, body) {
           "image_url": body.album.images[0].url,
           "buttons": [{
             "type": "web_url",
-            "url": "https://open.spotify.com/embed?uri=" + body.uri,
-            "title": "Go to Spotify!"
+            "url": "https://open.spotify.com/track/" + stripURI(body.uri),
+            "title": "Go to Spotify"
           }],
         }]
       }

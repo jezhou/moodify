@@ -41,6 +41,10 @@ exports.analyzePhoto = function(imageURL, api_key, sender, callback, music) {
         message = "I'm so glad you're happy! Here! Jam out to something great on this happy day.";
       } else if (highestFaceEmotionKey === "sadness") {
         message = "Aw, I'm sorry you're feeling that way. Here's a song to cheer you up.";
+      } else if (highestFaceEmotionKey === "anger") {
+        message = "Things are a little tough, I totally get it. Why not listen to a song to let it all out?";
+      } else {
+        message = "I spot a face! The primary emotion I interpret is " + highestFaceEmotionKey + ". Here's a song you might like."
       }
       callback(sender, message);
       music(highestFaceEmotionKey, sender, spotify.recommendSong, messenger.sendSpotifyMessage);
@@ -68,7 +72,7 @@ exports.analyzeText = function(mytext, sender, callback, music) {
         // highestTextEmotionArray =
 
         if(typeof callback === "function"){
-          callback(sender, "I've read your text! The primary emotion I interpret is " + highestTextEmotion.tone_id + ". Here are some songs I'd recommend based on your mood.");
+          callback(sender, "I've read your text! The primary emotion I interpret is " + highestTextEmotion.tone_id + ". Here is a song I recommend based on your mood.");
           music(highestTextEmotion.tone_id, sender, spotify.recommendSong, messenger.sendSpotifyMessage);
         }
       }
