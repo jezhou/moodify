@@ -52,6 +52,7 @@ router.get('/callback', function(req, res) {
   // after checking the state parameter
 
   var code = req.query.code || null;
+  console.log("Jesse Code is: " + code);
   // var state = req.query.state || null;
   // var storedState = req.cookies ? req.cookies[stateKey] : null;
 
