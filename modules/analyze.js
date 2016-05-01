@@ -21,13 +21,13 @@ exports.analyzePhoto = function(imageURL, api_key, sender, callback) {
     else if (response.body.error) {
       console.log('Error: ', response.body.error);
     }
-
-    console.log(body);
+    else if (body.length === 0){
+      callback(sender, "I'm sorry, I can't find anyone in your photo :/");
+      return;
+    }
 
     if(typeof callback === "function"){
-      console.log("About to start the callback in analyzePhoto...");
-      callback(sender, JSON.stringify(body));
-      console.log("Finishing callback in analyzePhoto!");
+      callback(sender, JSON.stringify(body[0]));
     }
   });
 };
