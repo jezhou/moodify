@@ -1,3 +1,8 @@
-var spotify = require("./modules/spotify");
+var jsonfile = require('jsonfile')
 
-console.log(spotify.generateOAuthURL());
+var file = 'tmp/data.json'
+var obj = {name: 'JP'}
+
+jsonfile.writeFile(file, obj, {spaces: 2}, function(err) {
+      console.error(err)
+})
