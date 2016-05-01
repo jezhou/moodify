@@ -102,9 +102,20 @@ var tuning = function(emotion) {
 
 exports.recommendSong = function(emotion, topTracks){
   // seeding recommendations
-  console.log(seeds[emotion]);
+  var index;
+  if (emotion === "joy" || emotion === "happiness") {
+    index = 0;
+  } else if (emotion === "sadness") {
+    index = 1;
+  } else if (emotion === "fear") {
+    index = 0;
+  } else if (emotion === "disgust") {
+    index = 0;
+  } else if (emotion === "anger"){
+    index = 2;
+  }
   var options = {
-    url: 'https://api.spotify.com/v1/recommendations/?seed_tracks=' + topTracks.join() + seeds[emotion].join() + tuning(emotion),
+    url: 'https://api.spotify.com/v1/recommendations/?seed_tracks=' + topTracks.join() + seeds[index].join() + tuning(emotion),
     headers: { 'Authorization': 'Bearer ' + process.env.SPOTIFY_TOKEN },
     json: true
   };
