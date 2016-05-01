@@ -63,6 +63,8 @@ exports.sendSpotifyMessage = function (sender, body) {
 
   console.log(body);
 
+  console.log(body.album)
+
   messageData = {
     "attachment": {
       "type": "template",
@@ -70,8 +72,8 @@ exports.sendSpotifyMessage = function (sender, body) {
         "template_type": "generic",
         "elements": [{
           "title": body.name,
-          "subtitle": "Artist",
-          "image_url": "http://messengerdemo.parseapp.com/img/rift.png",
+          "subtitle": body.artists[0].name,
+          "image_url": body.album.images[0].url,
           "buttons": [{
             "type": "web_url",
             "url": "https://open.spotify.com/embed?uri=" + body.uri,
