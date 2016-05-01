@@ -82,7 +82,7 @@ router.get('/callback', function(req, res) {
     request.post(authOptions, function(error, response, body) {
       if (!error && response.statusCode === 200) {
 
-        var file = '../models/spotify_temp.json';
+        var file = './spotify_temp.json';
         var obj = {
           access_token: body.access_token,
           refresh_token: body.refresh_token
@@ -92,7 +92,7 @@ router.get('/callback', function(req, res) {
 
         // Shitty storage
         jsonfile.writeFile(file, obj, function(err) {
-          console.error(err)
+          console.error(err);
         })
 
         // we can also pass the token to the browser to make requests from there

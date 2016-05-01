@@ -40,7 +40,7 @@ exports.generateOAuthURL = function() {
 }
 
 var getAccessToken = function() {
-  var file = '../models/spotify_temp.json';
+  var file = './spotify_temp.json';
   jsonfile.readFile(file, function(err, obj) {
 
     console.log(obj);
