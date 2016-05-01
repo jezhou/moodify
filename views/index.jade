@@ -1,22 +1,24 @@
 extends layout
 
 block content
-  .title
+  .center
     h1= title
-
-  p Welcome to #{title}
+    p A Playlist For Your Mood!
   
   .row
     .col-md-6
-      p Picture to Insert
-      input(type='file')
+      p Upload Your Picture
+      form(action="/upload/new", method="post", enctype="multipart/form-data")
+        input(type="file", name="displayImage")
+        button(type="submit") Upload
       img#myImg(src='#', alt='your image')
 
     .col-md-6
-      p Emotion
+      p Emotion Summary
   
   .row
-    iframe(src="https://embed.spotify.com/?uri=spotify%3Atrack%3A33Q6ldVXuJyQmqs8BmAa0k" width="300" height="80" frameborder="0" allowtransparency="true")
+    .center
+      iframe(src="https://embed.spotify.com/?uri=spotify%3Atrack%3A33Q6ldVXuJyQmqs8BmAa0k" width="300" height="80" frameborder="0" allowtransparency="true")
 
   script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js")
   script(src="./javascripts/upload.js")
