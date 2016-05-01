@@ -62,7 +62,7 @@ exports.analyzeText = function(mytext, sender, callback, music) {
 
         if(typeof callback === "function"){
           callback(sender, "I've read your text! The primary emotion I interpret is " + highestTextEmotion.tone_id + ". Here are some songs I'd recommend based on your mood.");
-          music(highestTextEmotion.tone_id, sender, spotify.recommendSong, callback);
+          music(highestTextEmotion.tone_id, sender, spotify.recommendSong, messenger.sendSpotifyMessage);
         }
       }
   });
