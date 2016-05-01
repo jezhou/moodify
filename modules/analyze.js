@@ -22,7 +22,9 @@ exports.analyzePhoto = function(imageURL, api_key, sender, callback) {
     }
 
     if(typeof callback === "function"){
+      console.log("About to start the callback in analyzePhoto...");
       callback(sender, body[0].scores);
+      console.log("Finishing callback in analyzePhoto!");
     }
   });
 };
