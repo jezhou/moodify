@@ -2,7 +2,9 @@ var express = require('express');
 var request = require('request');
 var router = express.Router();
 
-/* GET webhook listing. */
+var emotion = require('../modules/analyze.js');
+
+/* GET validates Facebook */
 router.get('/', function (req, res) {
   if (req.query['hub.verify_token'] === process.env.FACEBOOK_VALIDATION_TOKEN) {
     res.send(req.query['hub.challenge']);
@@ -23,8 +25,15 @@ router.post('/', function (req, res) {
     else if(event.message && event.message.attachments[0].type === "image"){
 
       var url = event.message.attachments[0].payload.url;
-      sendTextMessage(sender, "I just received an image from you. Currently analyzing...");
       sendImageMessage(sender, url);
+      emotion.analyzePhoto(url, process.env.MICROSOFT_EMOTION_API, sender, sendTextMessage);
+
+      // var results = emotion.analyzePhoto(url, process.env.MICROSOFT_EMOTION_API);
+      // console.log(results);
+      // var facebox = results[0].faceRectangle;
+      // var emotions = results[0].scores;
+      //
+      // sendTextMessage(sender, "Here is your emotion report: " + JSON.stringify(emotions));
 
     }
   }
