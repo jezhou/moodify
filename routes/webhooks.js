@@ -32,7 +32,7 @@ router.post('/', function (req, res) {
       var facebox = results[0].faceRectangle;
       var emotions = results[0].scores;
 
-      sendTextMessage(sender, "Here is your emotion report: " + emotions);
+      sendTextMessage(sender, "Here is your emotion report: " + JSON.stringify(emotions));
 
     }
   }
