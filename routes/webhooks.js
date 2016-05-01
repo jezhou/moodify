@@ -19,6 +19,7 @@ router.post('/', function (req, res) {
     if (event.message && event.message.text) {
       text = event.message.text;
       sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
+      console.log(event);
     }
   }
   res.sendStatus(200);
