@@ -34,7 +34,7 @@ exports.analyzePhoto = function(imageURL, api_key, sender, callback) {
     var highestFaceEmotionKey = Object.keys(emotions).reduce(function(a, b){ return emotions[a] > emotions[b] ? a : b });
 
     if(typeof callback === "function"){
-      callback(sender, "I found a face! The primary emotion I see is " + highestFaceEmotionKey, messenger.sendSpotifyMessage);
+      callback(sender, "I found a face! The primary emotion I see is " + highestFaceEmotionKey + ". Here are some songs I'd recommend based on your mood.", messenger.sendSpotifyMessage);
     }
   });
 };
@@ -59,7 +59,7 @@ exports.analyzeText = function(mytext, sender, callback) {
         // highestTextEmotionArray = 
 
         if(typeof callback === "function"){
-          callback(sender, "I've read your text! The primary emotion I interpret is " + highestTextEmotion.tone_id);
+          callback(sender, "I've read your text! The primary emotion I interpret is " + highestTextEmotion.tone_id + ". Here are some songs I'd recommend based on your mood.", messenger.sendSpotifyMessage);
         }
       }
   });
