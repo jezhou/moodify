@@ -94,7 +94,7 @@ exports.getTopTracks = function(emotion, sender, callback, messenger){
 
 var tuning = function(emotion) {
   var res = "";
-  if (emotion === "joy" || emotion === "happiness" || emotion === "neutral" || emotion === "surprise") {
+  if (emotion === "joy" || emotion === "happiness" || emotion === "surprise") {
     res = "&min_valence=0.8&min_danceability=0.7&min_energy=0.6&min_tempo=120";
   } else if (emotion === "sadness" || emotion === "fear") {
     res = "&max_valence=0.5&max_danceability=0.5&max_tempo=142";

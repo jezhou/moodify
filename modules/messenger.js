@@ -77,11 +77,7 @@ exports.sendSpotifyMessage = function (sender, body) {
           "buttons": [{
             "type": "web_url",
             "url": "https://open.spotify.com/embed?uri=" + body.uri,
-            "title": "Web url"
-          }, {
-            "type": "postback",
-            "title": "Postback",
-            "payload": "Payload for first element in a generic bubble",
+            "title": "Go to Spotify!"
           }],
         }]
       }
