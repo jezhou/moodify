@@ -140,6 +140,7 @@ exports.recommendSong = function(emotion, topTracks, sender, callback){
 
   // use the access token to access the Spotify Web API
   request.get(options, function(error, response, body) {
+    console.log(body.tracks[0]);
     callback(sender, body.tracks[0], messenger.sendSpotifyMessage);
   });
 };
