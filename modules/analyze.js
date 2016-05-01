@@ -37,7 +37,7 @@ exports.analyzeText = function(mytext) {
     username: process.env.WATSON_USER,
     password: process.env.WATSON_PASSWORD,
     version: 'v3-beta',
-    version_date: '2016-02-11'
+    version_date: '2016-02-11&tones=emotion'
   });
 
   tone_analyzer.tone({ text: 'Greetings from Watson Developer Cloud!' },
