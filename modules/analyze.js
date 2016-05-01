@@ -1,5 +1,6 @@
 var exports = module.exports = {};
 var request = require('request');
+var watson = require('watson-developer-cloud');
 
 exports.analyzePhoto = function(imageURL, api_key) {
   request({
@@ -18,5 +19,22 @@ exports.analyzePhoto = function(imageURL, api_key) {
     // }
 
     console.log(body);
+  });
+};
+
+exports.analyzeText = function(mytext) {
+  var tone_analyzer = watson.tone_analyzer({
+    username: process.env.WATSON_USER,
+    password: process.env.WATSON_PASSWORD,
+    version: 'v3-beta',
+    version_date: '2016-02-11'
+  });
+
+  tone_analyzer.tone({ text: 'Greetings from Watson Developer Cloud!' },
+    function(err, tone) {
+      if (err)
+        console.log(err);
+      else
+        console.log(JSON.stringify(tone, null, 2));
   });
 };
