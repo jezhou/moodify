@@ -2,11 +2,12 @@ var exports = module.exports = {};
 var request = require('request');
 var watson = require('watson-developer-cloud');
 
-var messenger = require('../modules/messenger')
+var messenger = require('../modules/messenger');
+var spotify = require ('../modules/spotify');
 
 var _ = require('underscore');
 
-exports.analyzePhoto = function(imageURL, api_key, sender, callback) {
+exports.analyzePhoto = function(imageURL, api_key, sender, callback, music) {
   request({
     url: 'https://api.projectoxford.ai/emotion/v1.0/recognize',
     headers: {
@@ -35,11 +36,12 @@ exports.analyzePhoto = function(imageURL, api_key, sender, callback) {
 
     if(typeof callback === "function"){
       callback(sender, "I found a face! The primary emotion I see is " + highestFaceEmotionKey + ". Here are some songs I'd recommend based on your mood.", messenger.sendSpotifyMessage);
+      music(highestFaceEmotionKey, sender, spotify.recommendSong, callback);
     }
   });
 };
 
-exports.analyzeText = function(mytext, sender, callback) {
+exports.analyzeText = function(mytext, sender, callback, music) {
   var tone_analyzer = watson.tone_analyzer({
     username: process.env.WATSON_USER,
     password: process.env.WATSON_PASSWORD,
@@ -56,10 +58,11 @@ exports.analyzeText = function(mytext, sender, callback) {
         emotions = tone.document_tone.tone_categories[0].tones;
         highestTextEmotion = _.max(emotions, function(emotion){ return emotion.score});
 
-        // highestTextEmotionArray = 
+        // highestTextEmotionArray =
 
         if(typeof callback === "function"){
           callback(sender, "I've read your text! The primary emotion I interpret is " + highestTextEmotion.tone_id + ". Here are some songs I'd recommend based on your mood.", messenger.sendSpotifyMessage);
+          music(highestFaceEmotionKey, sender, spotify.recommendSong, callback);
         }
       }
   });

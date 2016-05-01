@@ -28,20 +28,17 @@ router.post('/', function (req, res) {
 
       //Send the oauth
       if(text === "spotify"){
-
+        messenger.sendTextMessage(sender, "Please authenticate your Spotify by clicking the link below!");
         messenger.sendTextMessage(sender, spotify.generateOAuthURL());
 
       }
-      else if (text === "top tracks") {
-        spotify.getTopTracks("happiness", spotify.recommendSong);
-      }
       else {
-        emotion.analyzeText(text, sender, messenger.sendTextMessage);
+        emotion.analyzeText(text, sender, messenger.sendTextMessage, spotify.getTopTracks);
       }
     }
     else if(event.message && event.message.attachments[0].type === "image"){
       var url = event.message.attachments[0].payload.url;
-      emotion.analyzePhoto(url, process.env.MICROSOFT_EMOTION_API, sender, messenger.sendTextMessage);
+      emotion.analyzePhoto(url, process.env.MICROSOFT_EMOTION_API, sender, messenger.sendTextMessage, spotify.getTopTracks);
     }
   }
 

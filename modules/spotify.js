@@ -8,6 +8,8 @@ var jsonfile      = require('jsonfile');
 
 var _ = require('underscore');
 
+var messenger = require('../modules/messenger');
+
 var client_id = process.env.SPOTIFY_CLIENT_ID;
 var client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 var redirect_uri = process.env.SPOTIFY_REDIRECT_URL;
@@ -60,7 +62,7 @@ var stripURI = function(url) {
   return splitURI[splitURI.length - 1];
 };
 
-exports.getTopTracks = function(emotion, callback){
+exports.getTopTracks = function(emotion, sender, callback, messenger){
   // Top Tracks
   var options = {
     url: 'https://api.spotify.com/v1/me/top/tracks?time_range=short_term',
@@ -77,7 +79,7 @@ exports.getTopTracks = function(emotion, callback){
     topTracks = [stripURI(items.pop(_.random(0, items.length))["uri"])];
     topTracks.push(stripURI(items[_.random(0, items.length)]["uri"]));
 
-    callback(emotion, topTracks);
+    callback(emotion, topTracks, sender, messenger);
 
   });
 
@@ -99,7 +101,7 @@ var tuning = function(emotion) {
   return res;
 };
 
-exports.recommendSong = function(emotion, topTracks){
+exports.recommendSong = function(emotion, topTracks, sender, callback){
   // seeding recommendations
   var options = {
     url: 'https://api.spotify.com/v1/recommendations/?seed_tracks=' + topTracks.join() + ',' + seeds[emotion].join() + tuning(emotion),
@@ -109,6 +111,6 @@ exports.recommendSong = function(emotion, topTracks){
 
   // use the access token to access the Spotify Web API
   request.get(options, function(error, response, body) {
-    console.log(body);
+    callback(sender, "Here's a song! " + body.tracks[0].uri, messenger.sendSpotifyMessage);
   });
 };
