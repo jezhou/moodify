@@ -41,7 +41,7 @@ exports.analyzePhoto = function(imageURL, api_key, sender, callback, music) {
         message = "I'm so glad you're happy! Here! Jam out to something great on this happy day.";
       } else if (highestFaceEmotionKey === "sadness") {
         message = "Aw, I'm sorry you're feeling that way. Here's a song to cheer you up.";
-      } else if (highestFaceEmotionKey === "anger") {
+      } else if (highestFaceEmotionKey === "anger" || highestFaceEmotionKey === "contempt" || highestFaceEmotionKey === "disgust") {
         message = "Things are a little tough, I totally get it. Why not listen to a song to let it all out?";
       } else {
         message = "I spot a face! The primary emotion I interpret is " + highestFaceEmotionKey + ". Here's a song you might like."
@@ -72,7 +72,17 @@ exports.analyzeText = function(mytext, sender, callback, music) {
         // highestTextEmotionArray =
 
         if(typeof callback === "function"){
-          callback(sender, "I've read your text! The primary emotion I interpret is " + highestTextEmotion.tone_id + ". Here is a song I recommend based on your mood.");
+          var message = "";
+          if (highestTextEmotionKey.tone_id === "joy") {
+            message = "I'm so glad you're happy! Here! Jam out to something great on this happy day.";
+          } else if (highestTextEmotionKey.tone_id === "sadness" || highestTextEmotionKey.tone_id === "fear") {
+            message = "Aw, I'm sorry you're feeling that way. Here's a song to make you feel better.";
+          } else if (highestTextEmotionKey.tone_id === "anger" || highestTextEmotionKey.tone_id === "disgust") {
+            message = "Things are a little tough, I totally get it. Why not listen to a song to let it all out?";
+          } else {
+            message = "I've read your text! The primary emotion I interpret is " + highestTextEmotionKey.tone_id + ". Here's a song you might like."
+          }
+          callback(sender, message);
           music(highestTextEmotion.tone_id, sender, spotify.recommendSong, messenger.sendSpotifyMessage);
         }
       }
