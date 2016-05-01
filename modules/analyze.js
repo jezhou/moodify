@@ -23,7 +23,7 @@ exports.analyzePhoto = function(imageURL, api_key, sender, callback) {
 
     if(typeof callback === "function"){
       console.log("About to start the callback in analyzePhoto...");
-      callback(sender, JSON.stringify(body[0].scores));
+      callback(sender, JSON.stringify(body));
       console.log("Finishing callback in analyzePhoto!");
     }
   });
