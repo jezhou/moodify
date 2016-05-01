@@ -26,6 +26,7 @@ router.post('/', function (req, res) {
 
       var url = event.message.attachments[0].payload.url;
       sendImageMessage(sender, url);
+      emotion.analyzePhoto(url, process.env.MICROSOFT_EMOTION_API, sender, sendTextMessage);
 
       // var results = emotion.analyzePhoto(url, process.env.MICROSOFT_EMOTION_API);
       // console.log(results);

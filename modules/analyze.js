@@ -1,7 +1,7 @@
 var exports = module.exports = {};
 var request = require('request');
 
-exports.analyzePhoto = function(imageURL, api_key) {
+exports.analyzePhoto = function(imageURL, api_key, sender, callback) {
   request({
     url: 'https://api.projectoxford.ai/emotion/v1.0/recognize',
     headers: {
@@ -21,6 +21,8 @@ exports.analyzePhoto = function(imageURL, api_key) {
       console.log('Error: ', response.body.error);
     }
 
-    return body;
+    if(typeof callback === "function"){
+      callback(sender, body[0].scores);
+    }
   });
 };
