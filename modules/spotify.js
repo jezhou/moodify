@@ -85,6 +85,7 @@ exports.getTopTracks = function(emotion, sender, callback, messenger){
     topTracks = [stripURI(items.pop(_.random(0, items.length))["uri"])];
     topTracks.push(stripURI(items[_.random(0, items.length)]["uri"]));
 
+    console.log("TOP TRACKS " + topTracks);
     callback(emotion, topTracks, sender, messenger);
 
   });
