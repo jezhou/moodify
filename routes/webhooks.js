@@ -23,11 +23,9 @@ router.post('/', function (req, res) {
       emotion.analyzeText(text, sender, sendTextMessage);
     }
     else if(event.message && event.message.attachments[0].type === "image"){
-
       var url = event.message.attachments[0].payload.url;
       sendImageMessage(sender, url);
       emotion.analyzePhoto(url, process.env.MICROSOFT_EMOTION_API, sender, sendTextMessage);
-
     }
   }
 

@@ -40,7 +40,7 @@ exports.analyzeText = function(mytext, sender, callback) {
     version_date: '2016-02-11',
   });
 
-  tone_analyzer.tone({ text: 'Greetings from Watson Developer Cloud!' },
+  tone_analyzer.tone({ text: mytext },
     function(err, tone) {
       if (err)
         console.log(err);
