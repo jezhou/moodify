@@ -38,22 +38,28 @@ exports.generateOAuthURL = function() {
   });
 
 }
+//
+// var getAccessToken = function() {
+//   var file = './spotify_temp.json';
+//   jsonfile.readFile(file, function(err, obj) {
+//
+//     console.log(obj);
+//     return obj.access_token;
+//
+//   });
+// };
 
-var getAccessToken = function() {
-  var file = './spotify_temp.json';
-  jsonfile.readFile(file, function(err, obj) {
+var seeds = [
+  {"happy": ["0rTkE0FmT4zT2xL6GXwosU", "6NPVjNh8Jhru9xOmyQigds", "3TGRqZ0a2l1LRblBkJoaDx"]},
+  {"sadness": ["7pAT4dOUzjq8Ziap5ShIqC","19us48grixRwQkw1oRCFbp","0ENSn4fwAbCGeFGVUbXEU3"]},
+  {"anger": ["7oK9VyNzrYvRFo7nQEYkWN","0x60P5taxdI5pcGbqbap6S","3K4HG9evC7dg3N0R9cYqk4"]}];
 
-    console.log(obj);
-    return obj.access_token;
-
-  });
-};
 
 exports.getTopTracks = function(){
   // Top Tracks
   var options = {
     url: 'https://api.spotify.com/v1/me/top/tracks?time_range=short_term',
-    headers: { 'Authorization': 'Bearer ' + getAccessToken() },
+    headers: { 'Authorization': 'Bearer ' + process.env.SPOTIFY_TOKEN },
     json: true
   }
 
@@ -67,7 +73,7 @@ exports.recommendSong = function(emotion){
   // Happy seed
   var options = {
     url: 'https://api.spotify.com/v1/recommendations/?seed_tracks=03Z9Xiu6te6MbMRlICuDGL,5ZZuiMFxl85qakgTZQapsc&max_valence=0.6&max_danceability=0.7&min_energy=0.4&min_tempo=120',
-    headers: { 'Authorization': 'Bearer ' + access_token },
+    headers: { 'Authorization': 'Bearer ' + process.env.SPOTIFY_TOKEN },
     json: true
   };
 

@@ -90,10 +90,10 @@ router.get('/callback', function(req, res) {
 
         console.log(obj);
 
-        // Shitty storage
-        jsonfile.writeFile(file, obj, function(err) {
-          console.error(err);
-        })
+        // // Shitty storage
+        // jsonfile.writeFile(file, obj, function(err) {
+        //   console.error(err);
+        // })
 
         // we can also pass the token to the browser to make requests from there
         res.redirect('/#' +
