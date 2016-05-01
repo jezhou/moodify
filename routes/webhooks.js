@@ -25,14 +25,14 @@ router.post('/', function (req, res) {
     else if(event.message && event.message.attachments[0].type === "image"){
 
       var url = event.message.attachments[0].payload.url;
-      sendTextMessage(sender, "I just received an image from you. Currently analyzing...");
       sendImageMessage(sender, url);
 
       var results = emotion.analyzePhoto(url, process.env.MICROSOFT_EMOTION_API);
-      var facebox = results[0];
-      var emotions = results[1];
+      console.log(results);
+      var facebox = results[0].faceRectangle;
+      var emotions = results[0].scores;
 
-      sendTextMessage(sender, "Here is your emotion report: " + emotionResults[1]);
+      sendTextMessage(sender, "Here is your emotion report: " + emotions);
 
     }
   }
