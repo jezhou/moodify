@@ -35,6 +35,7 @@ exports.analyzePhoto = function(imageURL, api_key, sender, callback, music) {
     var highestFaceEmotionKey = Object.keys(emotions).reduce(function(a, b){ return emotions[a] > emotions[b] ? a : b });
 
     if(typeof callback === "function"){
+      console.log("EMOTION IS " + highestFaceEmotionKey);
       callback(sender, "I found a face! The primary emotion I see is " + highestFaceEmotionKey + ". Here are some songs I'd recommend based on your mood.", messenger.sendSpotifyMessage);
       music(highestFaceEmotionKey, sender, spotify.recommendSong, messenger.sendSpotifyMessage);
     }
