@@ -20,6 +20,14 @@ router.post('/', function (req, res) {
       text = event.message.text;
       sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
     }
+
+    if(event.message && event.message.attachments[0].type === "image"){
+
+      var url = event.message.attachments[0].payload.url;
+
+      sendTextMessage(sender, "I just received an image from you. Currently analyzing...");
+      sendImageMessage(sender, url);
+    }
   }
 
   console.log(event);
@@ -27,10 +35,12 @@ router.post('/', function (req, res) {
 });
 
 var token = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
+
 function sendTextMessage(sender, text) {
   messageData = {
     text:text
-  }
+  };
+
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
     qs: {access_token:token},
@@ -46,6 +56,34 @@ function sendTextMessage(sender, text) {
       console.log('Error: ', response.body.error);
     }
   });
+}
+
+function sendImageMessage(sender, url){
+  messageData = {
+    attachment: {
+      type: image,
+      payload: {
+        url: url
+      }
+    }
+  };
+
+  request({
+    url: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: {access_token:token},
+    method: 'POST',
+    json: {
+      recipient: {id:sender},
+      message: messageData,
+    }
+  }, function(error, response, body) {
+    if (error) {
+      console.log('Error sending message: ', error);
+    } else if (response.body.error) {
+      console.log('Error: ', response.body.error);
+    }
+  });
+
 }
 
 module.exports = router;
