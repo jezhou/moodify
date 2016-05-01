@@ -102,6 +102,7 @@ var tuning = function(emotion) {
 
 exports.recommendSong = function(emotion, topTracks){
   // seeding recommendations
+  console.log(seeds[emotion]);
   var options = {
     url: 'https://api.spotify.com/v1/recommendations/?seed_tracks=' + topTracks.join() + seeds[emotion].join() + tuning(emotion),
     headers: { 'Authorization': 'Bearer ' + process.env.SPOTIFY_TOKEN },
