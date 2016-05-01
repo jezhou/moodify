@@ -52,7 +52,7 @@ exports.generateOAuthURL = function() {
 // };
 
 var seeds = [
-  {"happy": ["0rTkE0FmT4zT2xL6GXwosU", "6NPVjNh8Jhru9xOmyQigds", "3TGRqZ0a2l1LRblBkJoaDx"]},
+  {"happiness": ["0rTkE0FmT4zT2xL6GXwosU", "6NPVjNh8Jhru9xOmyQigds", "3TGRqZ0a2l1LRblBkJoaDx"]},
   {"sadness": ["7pAT4dOUzjq8Ziap5ShIqC","19us48grixRwQkw1oRCFbp","0ENSn4fwAbCGeFGVUbXEU3"]},
   {"anger": ["7oK9VyNzrYvRFo7nQEYkWN","0x60P5taxdI5pcGbqbap6S","3K4HG9evC7dg3N0R9cYqk4"]}];
 
