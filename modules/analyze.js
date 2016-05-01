@@ -56,6 +56,8 @@ exports.analyzeText = function(mytext, sender, callback) {
         emotions = tone.document_tone.tone_categories[0].tones;
         highestTextEmotion = _.max(emotions, function(emotion){ return emotion.score});
 
+        // highestTextEmotionArray = 
+
         if(typeof callback === "function"){
           callback(sender, "I've read your text! The primary emotion I interpret is " + highestTextEmotion.tone_id);
         }

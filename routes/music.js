@@ -139,7 +139,6 @@ router.get('/refresh_token', function(req, res) {
   });
 });
 
-
 // Algorithm
 var songToSongClass = function(songFeatures) {
   // HAPPY IS AVERAGE OF DANCEABILITY + VALENCE > 0.6

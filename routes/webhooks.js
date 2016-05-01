@@ -4,6 +4,8 @@ var router = express.Router();
 
 var emotion = require('../modules/analyze');
 var messenger = require('../modules/messenger');
+var spotify = require('../modules/spotify');
+
 var cloudinary = require('cloudinary');
 
 /* GET validates Facebook */
@@ -23,7 +25,16 @@ router.post('/', function (req, res) {
     sender = event.sender.id;
     if (event.message && event.message.text) {
       text = event.message.text;
-      emotion.analyzeText(text, sender, messenger.sendTextMessage);
+
+      //Send the oauth
+      if(text === "spotify"){
+
+        messenger.sendTextMessage(sender, "Authenticate Spotify so Mixabot can recommend you some music: " + spotify.generateOAuthURL());
+
+      }
+      else {
+        emotion.analyzeText(text, sender, messenger.sendTextMessage);
+      }
     }
     else if(event.message && event.message.attachments[0].type === "image"){
       var url = event.message.attachments[0].payload.url;
