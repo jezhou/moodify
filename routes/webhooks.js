@@ -1,4 +1,5 @@
 var express = require('express');
+var request = require('request');
 var router = express.Router();
 
 /* GET webhook listing. */
@@ -17,8 +18,6 @@ router.post('/', function (req, res) {
     sender = event.sender.id;
     if (event.message && event.message.text) {
       text = event.message.text;
-      console.log(text);
-      
       sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
     }
   }
@@ -26,7 +25,6 @@ router.post('/', function (req, res) {
 });
 
 var token = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
-
 function sendTextMessage(sender, text) {
   messageData = {
     text:text
