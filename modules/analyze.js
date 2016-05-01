@@ -10,12 +10,12 @@ exports.analyzePhoto = function(imageURL, api_key) {
       url: imageURL
     }
   }, function(error, response, body) {
-    if (error) {
-      console.log('Error sending message: ', error);
-    }
-    else if (response.body.error) {
-      console.log('Error: ', response.body.error);
-    }
+    // if (error) {
+    //   console.log('Error sending message: ', error);
+    // }
+    // else if (response.body.error) {
+    //   console.log('Error: ', response.body.error);
+    // }
 
     console.log(body);
   });
