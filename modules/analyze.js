@@ -2,6 +2,10 @@ var exports = module.exports = {};
 var request = require('request');
 var watson = require('watson-developer-cloud');
 
+var messenger = require('../modules/messenger')
+
+var _ = require('underscore');
+
 exports.analyzePhoto = function(imageURL, api_key, sender, callback) {
   request({
     url: 'https://api.projectoxford.ai/emotion/v1.0/recognize',
@@ -26,8 +30,11 @@ exports.analyzePhoto = function(imageURL, api_key, sender, callback) {
       return;
     }
 
+    emotions = body[0].scores;
+    var highestFaceEmotionKey = Object.keys(emotions).reduce(function(a, b){ return emotions[a] > emotions[b] ? a : b });
+
     if(typeof callback === "function"){
-      callback(sender, JSON.stringify(body[0]));
+      callback(sender, "I found a face! The primary emotion I see is " + highestFaceEmotionKey + ". Here are some songs I'd recommend based on your mood.", messenger.sendSpotifyMessage);
     }
   });
 };
@@ -45,8 +52,15 @@ exports.analyzeText = function(mytext, sender, callback) {
       if (err)
         console.log(err);
       else{
+
         emotions = tone.document_tone.tone_categories[0].tones;
-        callback(sender, JSON.stringify(emotions));
+        highestTextEmotion = _.max(emotions, function(emotion){ return emotion.score});
+
+        // highestTextEmotionArray = 
+
+        if(typeof callback === "function"){
+          callback(sender, "I've read your text! The primary emotion I interpret is " + highestTextEmotion.tone_id + ". Here are some songs I'd recommend based on your mood.", messenger.sendSpotifyMessage);
+        }
       }
   });
 };

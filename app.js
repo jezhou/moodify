@@ -10,6 +10,7 @@ require('dotenv').config();
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var upload = require('./routes/upload');
+var music = require('./routes/music');
 
 // Facebook
 var webhook = require('./routes/webhooks');
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/upload', upload);
+app.use('/music', music);
 app.use('/webhook', webhook);
 
 // catch 404 and forward to error handler

@@ -2,7 +2,11 @@ var express = require('express');
 var request = require('request');
 var router = express.Router();
 
-var emotion = require('../modules/analyze.js');
+var emotion = require('../modules/analyze');
+var messenger = require('../modules/messenger');
+var spotify = require('../modules/spotify');
+
+var cloudinary = require('cloudinary');
 
 /* GET validates Facebook */
 router.get('/', function (req, res) {
@@ -13,6 +17,7 @@ router.get('/', function (req, res) {
   res.send('Error, wrong validation token.');
 })
 
+/* POST receives messages from Facebook, and responds with another POST request */
 router.post('/', function (req, res) {
   messaging_events = req.body.entry[0].messaging;
   for (i = 0; i < messaging_events.length; i++) {
@@ -20,69 +25,25 @@ router.post('/', function (req, res) {
     sender = event.sender.id;
     if (event.message && event.message.text) {
       text = event.message.text;
-      emotion.analyzeText(text, sender, sendTextMessage);
+
+      //Send the oauth
+      if(text === "spotify"){
+
+        messenger.sendTextMessage(sender, spotify.generateOAuthURL());
+
+      }
+      else {
+        emotion.analyzeText(text, sender, messenger.sendTextMessage);
+      }
     }
     else if(event.message && event.message.attachments[0].type === "image"){
       var url = event.message.attachments[0].payload.url;
-      sendImageMessage(sender, url);
-      emotion.analyzePhoto(url, process.env.MICROSOFT_EMOTION_API, sender, sendTextMessage);
+      emotion.analyzePhoto(url, process.env.MICROSOFT_EMOTION_API, sender, messenger.sendTextMessage);
     }
   }
 
   console.log(event);
   res.sendStatus(200);
 });
-
-var token = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
-
-function sendTextMessage(sender, text) {
-  messageData = {
-    text:text
-  }
-
-  request({
-    url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {access_token:token},
-    method: 'POST',
-    json: {
-      recipient: {id:sender},
-      message: messageData,
-    }
-  }, function(error, response, body) {
-    if (error) {
-      console.log('Error sending message: ', error);
-    } else if (response.body.error) {
-      console.log('Error: ', response.body.error);
-    }
-  });
-}
-
-function sendImageMessage(sender, url){
-  messageData = {
-    attachment: {
-      type: 'image',
-      payload: {
-        url: url
-      }
-    }
-  };
-
-  request({
-    url: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {access_token:token},
-    method: 'POST',
-    json: {
-      recipient: {id:sender},
-      message: messageData,
-    }
-  }, function(error, response, body) {
-    if (error) {
-      console.log('Error sending message: ', error);
-    } else if (response.body.error) {
-      console.log('Error: ', response.body.error);
-    }
-  });
-
-}
 
 module.exports = router;
