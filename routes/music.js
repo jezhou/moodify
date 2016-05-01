@@ -89,7 +89,7 @@ router.get('/callback', function(req, res) {
         };
 
         // Shitty storage
-        jsonfile.writeFile(file, obj, function(err) {
+        json.writeFile(file, obj, function(err) {
           console.error(err)
         })
 

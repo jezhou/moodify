@@ -4,7 +4,7 @@ var request       = require('request');
 var crypto        = require('crypto');
 var cookieParser  = require('cookie-parser');
 var qs            = require('querystring');
-var jsonfile      = require('jsonfile');
+var json      = require('jsonfile');
 
 var client_id = process.env.SPOTIFY_CLIENT_ID;
 var client_secret = process.env.SPOTIFY_CLIENT_SECRET;
@@ -41,7 +41,7 @@ exports.generateOAuthURL = function() {
 
 var getAccessToken = function() {
   var file = '/models/spotify_temp.json'
-  jsonfile.readFile(file, function(err, obj) {
+  json.readFile(file, function(err, obj) {
 
     return obj.access_token;
 
