@@ -27,12 +27,12 @@ router.post('/', function (req, res) {
       var url = event.message.attachments[0].payload.url;
       sendImageMessage(sender, url);
 
-      var results = emotion.analyzePhoto(url, process.env.MICROSOFT_EMOTION_API);
-      console.log(results);
-      var facebox = results[0].faceRectangle;
-      var emotions = results[0].scores;
-
-      sendTextMessage(sender, "Here is your emotion report: " + JSON.stringify(emotions));
+      // var results = emotion.analyzePhoto(url, process.env.MICROSOFT_EMOTION_API);
+      // console.log(results);
+      // var facebox = results[0].faceRectangle;
+      // var emotions = results[0].scores;
+      //
+      // sendTextMessage(sender, "Here is your emotion report: " + JSON.stringify(emotions));
 
     }
   }
