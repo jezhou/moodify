@@ -51,10 +51,9 @@ exports.generateOAuthURL = function() {
 //   });
 // };
 
-var seeds = [
-  {"happiness": ["0rTkE0FmT4zT2xL6GXwosU", "6NPVjNh8Jhru9xOmyQigds", "3TGRqZ0a2l1LRblBkJoaDx"]},
-  {"sadness": ["7pAT4dOUzjq8Ziap5ShIqC","19us48grixRwQkw1oRCFbp","0ENSn4fwAbCGeFGVUbXEU3"]},
-  {"anger": ["7oK9VyNzrYvRFo7nQEYkWN","0x60P5taxdI5pcGbqbap6S","3K4HG9evC7dg3N0R9cYqk4"]}];
+var seeds = {"happiness": ["0rTkE0FmT4zT2xL6GXwosU", "6NPVjNh8Jhru9xOmyQigds", "3TGRqZ0a2l1LRblBkJoaDx"],
+  "sadness": ["7pAT4dOUzjq8Ziap5ShIqC","19us48grixRwQkw1oRCFbp","0ENSn4fwAbCGeFGVUbXEU3"],
+  "anger": ["7oK9VyNzrYvRFo7nQEYkWN","0x60P5taxdI5pcGbqbap6S","3K4HG9evC7dg3N0R9cYqk4"]};
 
 var stripURI = function(url) {
   var splitURI = url.split(":");
@@ -102,20 +101,8 @@ var tuning = function(emotion) {
 
 exports.recommendSong = function(emotion, topTracks){
   // seeding recommendations
-  var index;
-  if (emotion === "joy" || emotion === "happiness") {
-    index = 0;
-  } else if (emotion === "sadness") {
-    index = 1;
-  } else if (emotion === "fear") {
-    index = 0;
-  } else if (emotion === "disgust") {
-    index = 0;
-  } else if (emotion === "anger"){
-    index = 2;
-  }
   var options = {
-    url: 'https://api.spotify.com/v1/recommendations/?seed_tracks=' + topTracks.join() + seeds[index].join() + tuning(emotion),
+    url: 'https://api.spotify.com/v1/recommendations/?seed_tracks=' + topTracks.join() + seeds[emotion].join() + tuning(emotion),
     headers: { 'Authorization': 'Bearer ' + process.env.SPOTIFY_TOKEN },
     json: true
   };
