@@ -2,6 +2,8 @@ var exports = module.exports = {};
 var request = require('request');
 var watson = require('watson-developer-cloud');
 
+var _ = require('underscore');
+
 exports.analyzePhoto = function(imageURL, api_key, sender, callback) {
   request({
     url: 'https://api.projectoxford.ai/emotion/v1.0/recognize',
@@ -26,8 +28,11 @@ exports.analyzePhoto = function(imageURL, api_key, sender, callback) {
       return;
     }
 
+    emotions = body[0];
+    highestEmotion = Object.keys(emotions).reduce(function(a, b){ return emotions[a] > emotions[b] ? a : b });
+
     if(typeof callback === "function"){
-      callback(sender, JSON.stringify(body[0]));
+      callback(sender, "I found a face! It seems to be very " + highestEmotion ". Here is a graph showing all of the emotions I see:");
     }
   });
 };
@@ -45,8 +50,11 @@ exports.analyzeText = function(mytext, sender, callback) {
       if (err)
         console.log(err);
       else{
+
         emotions = tone.document_tone.tone_categories[0].tones;
-        callback(sender, JSON.stringify(emotions));
+        highestEmotion = _.max(emotions, function(emotion){ return emotion.score});
+
+        callback(sender, "You seem to have a lot of " + highestEmotion.tone_id "! Here is a graph showing all of your emotions:");
       }
   });
 };

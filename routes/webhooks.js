@@ -3,6 +3,7 @@ var request = require('request');
 var router = express.Router();
 
 var emotion = require('../modules/analyze.js');
+var cloudinary = require('cloudinary');
 
 /* GET validates Facebook */
 router.get('/', function (req, res) {
