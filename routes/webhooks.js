@@ -33,7 +33,7 @@ router.post('/', function (req, res) {
 
       }
       else if (text === "top tracks") {
-        spotify.getTopTracks("happiness", spotify.recommendSong;
+        spotify.getTopTracks("happiness", spotify.recommendSong);
       }
       else {
         emotion.analyzeText(text, sender, messenger.sendTextMessage);
