@@ -17,6 +17,7 @@ router.post('/', function (req, res) {
     sender = event.sender.id;
     if (event.message && event.message.text) {
       text = event.message.text;
+      console.log(text);
       // Handle a text message from this sender
     }
   }
