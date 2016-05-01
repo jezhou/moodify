@@ -39,8 +39,8 @@ exports.generateOAuthURL = function() {
 
 }
 
-var getAccessToken() = function() {
-  var file = '/tmp/data.json'
+var getAccessToken = function() {
+  var file = '/models/spotify_temp.json'
   jsonfile.readFile(file, function(err, obj) {
 
     return obj.access_token;
