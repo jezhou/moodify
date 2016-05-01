@@ -29,7 +29,7 @@ router.post('/', function (req, res) {
       //Send the oauth
       if(text === "spotify"){
 
-        messenger.sendTextMessage(sender, "Authenticate Spotify so Mixabot can recommend you some music: " + spotify.generateOAuthURL());
+        messenger.sendTextMessage(sender, "Authenticate Spotify for Mixabot: " + spotify.generateOAuthURL());
 
       }
       else {

@@ -26,7 +26,7 @@ var generateRandomString = function(length) {
 };
 
 var stateKey = 'spotify_auth_state';
-var scopes = 'user-read-private user-read-email playlist-read-private user-top-read playlist-read-collaborative user-follow-read user-library-read';
+var scopes = 'playlist-read-private user-top-read playlist-read-collaborative user-follow-read user-library-read';
 router.use(express.static(__dirname + '/public'))
    .use(cookieParser());
 
