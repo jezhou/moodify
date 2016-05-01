@@ -12,6 +12,9 @@ var users = require('./routes/users');
 var upload = require('./routes/upload');
 var music = require('./routes/music');
 
+// Facebook
+var webhook = require('./routes/webhooks');
+
 var app = express();
 
 // view engine setup
@@ -29,7 +32,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/upload', upload);
+<<<<<<< HEAD
 app.use('/music', music);
+=======
+app.use('/webhook', webhook);
+>>>>>>> bd5f1585fef8fb74eb6a509e3cef140383010036
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

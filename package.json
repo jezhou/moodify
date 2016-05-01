@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.12.4",
@@ -14,7 +15,11 @@
     "express": "~4.12.4",
     "jade": "~1.9.2",
     "morgan": "~1.5.3",
+    "multer": "^1.1.0",
+    "request": "^2.72.0",
     "serve-favicon": "~2.2.1",
-    "spotify-web-api-node": "^2.3.0"
+    "spotify-web-api-node": "^2.3.0",
+    "underscore": "^1.8.3",
+    "watson-developer-cloud": "^1.4.1"
   }
 }
