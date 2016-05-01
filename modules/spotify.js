@@ -27,7 +27,7 @@ generateRandomString = function(length) {
 exports.generateOAuthURL = function() {
 
   var stateKey = 'spotify_auth_state';
-  var scopes = 'user-read-private user-read-email playlist-read-private user-top-read playlist-read-collaborative user-follow-read user-library-read';
+  var scopes = 'user-top-read user-follow-read user-library-read';
   var state = generateRandomString(16);
 
   return 'https://accounts.spotify.com/authorize?' + qs.stringify({
