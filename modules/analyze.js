@@ -54,7 +54,7 @@ exports.analyzeText = function(mytext, sender, callback) {
         emotions = tone.document_tone.tone_categories[0].tones;
         highestEmotion = _.max(emotions, function(emotion){ return emotion.score});
 
-        callback(sender, "You seem to have a lot of " + highestEmotion.tone_id "! Here is a graph showing all of your emotions:");
+        callback(sender, "You seem to have a lot of " + highestEmotion.tone_id + "! Here is a graph showing all of your emotions:");
       }
   });
 };
