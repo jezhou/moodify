@@ -38,7 +38,6 @@ exports.analyzeText = function(mytext) {
     password: process.env.WATSON_PASSWORD,
     version: 'v3-beta',
     version_date: '2016-02-11',
-    tone_analyzer: 'emotion'
   });
 
   tone_analyzer.tone({ text: 'Greetings from Watson Developer Cloud!' },
@@ -46,6 +45,6 @@ exports.analyzeText = function(mytext) {
       if (err)
         console.log(err);
       else
-        console.log(JSON.stringify(tone, null, 2));
+        console.log(JSON.stringify(tone.document_tone.tone_categories[0].tones, null, 2));
   });
 };
