@@ -73,14 +73,14 @@ exports.analyzeText = function(mytext, sender, callback, music) {
 
         if(typeof callback === "function"){
           var message = "";
-          if (highestTextEmotionKey.tone_id === "joy") {
+          if (highestTextEmotion.tone_id === "joy") {
             message = "I'm so glad you're happy! Here! Jam out to something great on this happy day.";
-          } else if (highestTextEmotionKey.tone_id === "sadness" || highestTextEmotionKey.tone_id === "fear") {
+          } else if (highestTextEmotion.tone_id === "sadness" || highestTextEmotion.tone_id === "fear") {
             message = "Aw, I'm sorry you're feeling that way. Here's a song to make you feel better.";
-          } else if (highestTextEmotionKey.tone_id === "anger" || highestTextEmotionKey.tone_id === "disgust") {
+          } else if (highestTextEmotion.tone_id === "anger" || highestTextEmotion.tone_id === "disgust") {
             message = "Things are a little tough, I totally get it. Why not listen to a song to let it all out?";
           } else {
-            message = "I've read your text! The primary emotion I interpret is " + highestTextEmotionKey.tone_id + ". Here's a song you might like."
+            message = "I've read your text! The primary emotion I interpret is " + highestTextEmotion.tone_id + ". Here's a song you might like."
           }
           callback(sender, message);
           music(highestTextEmotion.tone_id, sender, spotify.recommendSong, messenger.sendSpotifyMessage);
