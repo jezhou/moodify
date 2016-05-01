@@ -52,15 +52,15 @@ router.get('/callback', function(req, res) {
   // after checking the state parameter
 
   var code = req.query.code || null;
-  var state = req.query.state || null;
-  var storedState = req.cookies ? req.cookies[stateKey] : null;
+  // var state = req.query.state || null;
+  // var storedState = req.cookies ? req.cookies[stateKey] : null;
 
-  if (state === null || state !== storedState) {
-    res.redirect('/#' +
-      qs.stringify({
-        error: 'state_mismatch'
-      }));
-  } else {
+  // if (state === null || state !== storedState) {
+  //   res.redirect('/#' +
+  //     qs.stringify({
+  //       error: 'state_mismatch'
+  //     }));
+  // } else {
     res.clearCookie(stateKey);
     var authOptions = {
       url: 'https://accounts.spotify.com/api/token',
@@ -112,7 +112,7 @@ router.get('/callback', function(req, res) {
           }));
       }
     });
-  }
+  // }
 });
 
 router.get('/refresh_token', function(req, res) {
