@@ -4,7 +4,7 @@ var request = require('request');
 exports.analyzePhoto = function(imageURL, api_key) {
   request({
     url: 'https://api.projectoxford.ai/emotion/v1.0/recognize',
-    qs: {"Ocp-Apim-Subscription-Key": api_key},
+    qs: {"Ocp-Apim-Subscription-Key": {api_key}},
     method: 'POST',
     json: {
       url: imageURL
