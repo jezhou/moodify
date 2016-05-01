@@ -29,11 +29,11 @@ router.post('/', function (req, res) {
       //Send the oauth
       if(text === "spotify"){
 
-        messenger.sendTextMessage(sender, spotify.generateOAuthURL("happiness", spotify.recommendSong));
+        messenger.sendTextMessage(sender, spotify.generateOAuthURL());
 
       }
       else if (text === "top tracks") {
-        spotify.getTopTracks();
+        spotify.getTopTracks("happiness", spotify.recommendSong;
       }
       else {
         emotion.analyzeText(text, sender, messenger.sendTextMessage);
