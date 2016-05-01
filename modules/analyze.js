@@ -21,6 +21,8 @@ exports.analyzePhoto = function(imageURL, api_key, sender, callback) {
       console.log('Error: ', response.body.error);
     }
 
+    console.log(body);
+
     if(typeof callback === "function"){
       console.log("About to start the callback in analyzePhoto...");
       callback(sender, JSON.stringify(body));
