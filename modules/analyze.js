@@ -32,7 +32,7 @@ exports.analyzePhoto = function(imageURL, api_key, sender, callback) {
     highestEmotion = Object.keys(emotions).reduce(function(a, b){ return emotions[a] > emotions[b] ? a : b });
 
     if(typeof callback === "function"){
-      callback(sender, "I found a face! It seems to be very " + highestEmotion ". Here is a graph showing all of the emotions I see:");
+      callback(sender, "I found a face! It seems to be very " + highestEmotion + ". Here is a graph showing all of the emotions I see:");
     }
   });
 };
