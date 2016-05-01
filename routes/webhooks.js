@@ -32,6 +32,9 @@ router.post('/', function (req, res) {
         messenger.sendTextMessage(sender, spotify.generateOAuthURL());
 
       }
+      else if (text === "top tracks") {
+        spotify.getTopTracks();
+      }
       else {
         emotion.analyzeText(text, sender, messenger.sendTextMessage);
       }

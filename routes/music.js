@@ -3,6 +3,7 @@ var request       = require('request');
 var crypto        = require('crypto');
 var cookieParser  = require('cookie-parser');
 var qs            = require('querystring');
+var json          = require('jsonfile');
 
 var router = express.Router();
 
@@ -76,36 +77,29 @@ router.get('/callback', function(req, res) {
       json: true
     };
 
+
+
     request.post(authOptions, function(error, response, body) {
       if (!error && response.statusCode === 200) {
 
-        access_token = body.access_token;
-        refresh_token = body.refresh_token;
-
-        // Happy seed
-        var options = {
-          url: 'https://api.spotify.com/v1/recommendations/?seed_tracks=03Z9Xiu6te6MbMRlICuDGL,5ZZuiMFxl85qakgTZQapsc&max_valence=0.6&max_danceability=0.7&min_energy=0.4&min_tempo=120',
-          headers: { 'Authorization': 'Bearer ' + access_token },
-          json: true
+        var file = 'models/spotify_temp.json';
+        var obj = {
+          access_token: body.access_token,
+          refresh_token: body.refresh_token
         };
-        // Top Tracks
-        var options2 = {
-          url: 'https://api.spotify.com/v1/me/top/tracks?time_range=short_term',
-          headers: { 'Authorization': 'Bearer ' + access_token },
-          json: true
-        }
 
-        // use the access token to access the Spotify Web API
-        request.get(options, function(error, response, body) {
-          console.log(body);
-        });
+        // Shitty storage
+        jsonfile.writeFile(file, obj, function(err) {
+          console.error(err)
+        })
 
         // we can also pass the token to the browser to make requests from there
         res.redirect('/#' +
           qs.stringify({
-            access_token: access_token,
-            refresh_token: refresh_token
+            access_token: obj.access_token,
+            refresh_token: obj.refresh_token
           }));
+
       } else {
         res.redirect('/#' +
           qs.stringify({
