@@ -32,7 +32,7 @@ exports.analyzePhoto = function(imageURL, api_key, sender, callback) {
   });
 };
 
-exports.analyzeText = function(mytext) {
+exports.analyzeText = function(mytext, sender, callback) {
   var tone_analyzer = watson.tone_analyzer({
     username: process.env.WATSON_USER,
     password: process.env.WATSON_PASSWORD,
@@ -44,7 +44,9 @@ exports.analyzeText = function(mytext) {
     function(err, tone) {
       if (err)
         console.log(err);
-      else
-        console.log(JSON.stringify(tone.document_tone.tone_categories[0].tones, null, 2));
+      else{
+        emotions = tone.document_tone.tone_categories[0].tones;
+        callback(sender, JSON.stringify(emotions));
+      }
   });
 };

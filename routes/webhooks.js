@@ -20,20 +20,13 @@ router.post('/', function (req, res) {
     sender = event.sender.id;
     if (event.message && event.message.text) {
       text = event.message.text;
-      sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
+      emotion.analyzeText(text, sender, sendTextMessage);
     }
     else if(event.message && event.message.attachments[0].type === "image"){
 
       var url = event.message.attachments[0].payload.url;
       sendImageMessage(sender, url);
       emotion.analyzePhoto(url, process.env.MICROSOFT_EMOTION_API, sender, sendTextMessage);
-
-      // var results = emotion.analyzePhoto(url, process.env.MICROSOFT_EMOTION_API);
-      // console.log(results);
-      // var facebox = results[0].faceRectangle;
-      // var emotions = results[0].scores;
-      //
-      // sendTextMessage(sender, "Here is your emotion report: " + JSON.stringify(emotions));
 
     }
   }
