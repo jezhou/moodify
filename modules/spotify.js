@@ -55,8 +55,13 @@ exports.generateOAuthURL = function() {
 
 var seeds = {"happiness": ["0rTkE0FmT4zT2xL6GXwosU", "6NPVjNh8Jhru9xOmyQigds", "3TGRqZ0a2l1LRblBkJoaDx"],
   "joy": ["0rTkE0FmT4zT2xL6GXwosU", "6NPVjNh8Jhru9xOmyQigds", "3TGRqZ0a2l1LRblBkJoaDx"],
+  "neutral": ["0rTkE0FmT4zT2xL6GXwosU", "6NPVjNh8Jhru9xOmyQigds", "3TGRqZ0a2l1LRblBkJoaDx"],
+  "surprise": ["0rTkE0FmT4zT2xL6GXwosU", "6NPVjNh8Jhru9xOmyQigds", "3TGRqZ0a2l1LRblBkJoaDx"],
   "sadness": ["7pAT4dOUzjq8Ziap5ShIqC","19us48grixRwQkw1oRCFbp","0ENSn4fwAbCGeFGVUbXEU3"],
-  "anger": ["7oK9VyNzrYvRFo7nQEYkWN","0x60P5taxdI5pcGbqbap6S","3K4HG9evC7dg3N0R9cYqk4"]};
+  "fear": ["7pAT4dOUzjq8Ziap5ShIqC","19us48grixRwQkw1oRCFbp","0ENSn4fwAbCGeFGVUbXEU3"],
+  "anger": ["7oK9VyNzrYvRFo7nQEYkWN","0x60P5taxdI5pcGbqbap6S","3K4HG9evC7dg3N0R9cYqk4"],
+  "contempt": ["7oK9VyNzrYvRFo7nQEYkWN","0x60P5taxdI5pcGbqbap6S","3K4HG9evC7dg3N0R9cYqk4"],
+  "disgust": ["7oK9VyNzrYvRFo7nQEYkWN","0x60P5taxdI5pcGbqbap6S","3K4HG9evC7dg3N0R9cYqk4"]};
 
 var stripURI = function(url) {
   var splitURI = url.split(":");
