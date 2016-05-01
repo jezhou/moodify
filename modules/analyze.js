@@ -2,6 +2,8 @@ var exports = module.exports = {};
 var request = require('request');
 var watson = require('watson-developer-cloud');
 
+var messenger = require('../modules/messenger')
+
 var _ = require('underscore');
 
 exports.analyzePhoto = function(imageURL, api_key, sender, callback) {
@@ -32,7 +34,7 @@ exports.analyzePhoto = function(imageURL, api_key, sender, callback) {
     var highestFaceEmotionKey = Object.keys(emotions).reduce(function(a, b){ return emotions[a] > emotions[b] ? a : b });
 
     if(typeof callback === "function"){
-      callback(sender, "I found a face! The primary emotion I see is " + highestFaceEmotionKey);
+      callback(sender, "I found a face! The primary emotion I see is " + highestFaceEmotionKey, messenger.sendSpotifyMessage);
     }
   });
 };
