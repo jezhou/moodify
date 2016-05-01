@@ -56,8 +56,12 @@ var seeds = [
   {"sadness": ["7pAT4dOUzjq8Ziap5ShIqC","19us48grixRwQkw1oRCFbp","0ENSn4fwAbCGeFGVUbXEU3"]},
   {"anger": ["7oK9VyNzrYvRFo7nQEYkWN","0x60P5taxdI5pcGbqbap6S","3K4HG9evC7dg3N0R9cYqk4"]}];
 
+var stripURI = function(uri) {
+  var splitURI = uri.split(":");
+  return splitURI[splitURI.length - 1];
+};
 
-exports.getTopTracks = function(){
+exports.getTopTracks = function(emotion, callback){
   // Top Tracks
   var options = {
     url: 'https://api.spotify.com/v1/me/top/tracks?time_range=short_term',
@@ -65,21 +69,41 @@ exports.getTopTracks = function(){
     json: true
   }
 
+  var topTracks = [];
+
   // use the access token to access the Spotify Web API
   request.get(options, function(error, response, body) {
     var items = body.items;
     // Get two random top tracks
-    var topTracks = [items.pop(_.random(0, items.length))["uri"]];
-    topTracks.push(items[_.random(0, items.length)]["uri"]);
+    topTracks = [stripURI(items.pop(_.random(0, items.length))["uri"])];
+    topTracks.push(stripURI(items[_.random(0, items.length)]));
 
-    console.log(topTracks);
+    callback(emotion, topTracks);
+
   });
+
 };
 
-exports.recommendSong = function(emotion){
-  // Happy seed
+var tuning = function(emotion) {
+  var res;
+  if (emotion === "joy" || emotion === "happiness") {
+    res = "&min_valence=0.8&min_danceability=0.7&min_energy=0.6&min_tempo=120";
+  } else if (emotion === "sadness") {
+    res = "&max_valence=0.5&max_danceability=0.5&max_tempo=142";
+  } else if (emotion === "fear") {
+    res = "";
+  } else if (emotion === "disgust") {
+    res = "";
+  } else if (emotion === "anger"){
+    res = "&max_valence=0.5&max_danceability=0.5&min_energy=0.6&min_tempo=120";
+  }
+  return res;
+};
+
+exports.recommendSong = function(emotion, topTracks){
+  // seeding recommendations
   var options = {
-    url: 'https://api.spotify.com/v1/recommendations/?seed_tracks=03Z9Xiu6te6MbMRlICuDGL,5ZZuiMFxl85qakgTZQapsc&max_valence=0.6&max_danceability=0.7&min_energy=0.4&min_tempo=120',
+    url: 'https://api.spotify.com/v1/recommendations/?seed_tracks=' + topTracks.join() + hardcode[emotion].join() + tuning(emotion),
     headers: { 'Authorization': 'Bearer ' + process.env.SPOTIFY_TOKEN },
     json: true
   };
