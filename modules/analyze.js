@@ -28,7 +28,7 @@ exports.analyzePhoto = function(imageURL, api_key, sender, callback) {
       return;
     }
 
-    emotions = body[0];
+    emotions = body[0].scores;
     var highestFaceEmotion = Object.keys(emotions).reduce(function(a, b){ return emotions[a] > emotions[b] ? a : b });
 
     if(typeof callback === "function"){
