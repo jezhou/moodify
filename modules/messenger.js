@@ -62,6 +62,8 @@ exports.sendImageMessage = function (sender, url){
 exports.sendSpotifyMessage = function (sender, body) {
 
   console.log(body);
+  console.log(body.album.images);
+  console.log(body.artists);
 
   messageData = {
     "attachment": {
