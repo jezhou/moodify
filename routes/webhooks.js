@@ -20,13 +20,12 @@ router.post('/', function (req, res) {
       text = event.message.text;
       sendTextMessage(sender, "Text received, echo: "+ text.substring(0, 200));
     }
-
-    if(event.message && event.message.attachments[0].type === "image"){
+    else if(event.message && event.message.attachments[0].type === "image"){
 
       var url = event.message.attachments[0].payload.url;
-
       sendTextMessage(sender, "I just received an image from you. Currently analyzing...");
       sendImageMessage(sender, url);
+
     }
   }
 
@@ -39,7 +38,7 @@ var token = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
 function sendTextMessage(sender, text) {
   messageData = {
     text:text
-  };
+  }
 
   request({
     url: 'https://graph.facebook.com/v2.6/me/messages',
@@ -61,7 +60,7 @@ function sendTextMessage(sender, text) {
 function sendImageMessage(sender, url){
   messageData = {
     attachment: {
-      type: image,
+      type: 'image',
       payload: {
         url: url
       }
