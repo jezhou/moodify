@@ -25,7 +25,6 @@ router.post('/', function (req, res) {
     }
     else if(event.message && event.message.attachments[0].type === "image"){
       var url = event.message.attachments[0].payload.url;
-      sendImageMessage(sender, url);
       emotion.analyzePhoto(url, process.env.MICROSOFT_EMOTION_API, sender, sendTextMessage);
     }
   }
@@ -36,7 +35,7 @@ router.post('/', function (req, res) {
 
 var token = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
 
-function sendTextMessage(sender, text) {
+function sendTextMessage(sender, text, callback) {
   messageData = {
     text:text
   }
@@ -58,7 +57,7 @@ function sendTextMessage(sender, text) {
   });
 }
 
-function sendImageMessage(sender, url){
+function sendImageMessage(sender, url, callback){
   messageData = {
     attachment: {
       type: 'image',
@@ -83,6 +82,11 @@ function sendImageMessage(sender, url){
       console.log('Error: ', response.body.error);
     }
   });
+
+}
+
+function sendGenericMessage(sender, url, callback){
+
 
 }
 

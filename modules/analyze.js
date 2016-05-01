@@ -29,10 +29,10 @@ exports.analyzePhoto = function(imageURL, api_key, sender, callback) {
     }
 
     emotions = body[0].scores;
-    var highestFaceEmotion = Object.keys(emotions).reduce(function(a, b){ return emotions[a] > emotions[b] ? a : b });
+    var highestFaceEmotionKey = Object.keys(emotions).reduce(function(a, b){ return emotions[a] > emotions[b] ? a : b });
 
     if(typeof callback === "function"){
-      callback(sender, "I found a face! It seems to be very " + highestFaceEmotion + ". Here is a graph showing all of the emotions I see:");
+      callback(sender, "I found a face! The primary emotion I see is " + highestFaceEmotionKey);
     }
   });
 };
@@ -54,9 +54,9 @@ exports.analyzeText = function(mytext, sender, callback) {
         emotions = tone.document_tone.tone_categories[0].tones;
         highestTextEmotion = _.max(emotions, function(emotion){ return emotion.score});
 
-
-
-        callback(sender, "You seem to have a lot of " + highestTextEmotion.tone_id + ". Here is a graph showing all of your emotions:");
+        if(typeof callback === "function"){
+          callback(sender, "I've read your text! The primary emotion I interpret is " + highestTextEmotion.tone_id);
+        }
       }
   });
 };
