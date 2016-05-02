@@ -54,15 +54,7 @@ router.get('/callback', function(req, res) {
 
   var code = req.query.code || null;
   console.log("Jesse Code is: " + code);
-  // var state = req.query.state || null;
-  // var storedState = req.cookies ? req.cookies[stateKey] : null;
 
-  // if (state === null || state !== storedState) {
-  //   res.redirect('/#' +
-  //     qs.stringify({
-  //       error: 'state_mismatch'
-  //     }));
-  // } else {
     res.clearCookie(stateKey);
     var authOptions = {
       url: 'https://accounts.spotify.com/api/token',
@@ -89,11 +81,6 @@ router.get('/callback', function(req, res) {
         };
 
         console.log(obj);
-
-        // // Shitty storage
-        // jsonfile.writeFile(file, obj, function(err) {
-        //   console.error(err);
-        // })
 
         // we can also pass the token to the browser to make requests from there
         res.redirect('/#' +
@@ -135,46 +122,5 @@ router.get('/refresh_token', function(req, res) {
     }
   });
 });
-
-// Algorithm
-var songToSongClass = function(songFeatures) {
-  // HAPPY IS AVERAGE OF DANCEABILITY + VALENCE > 0.6
-  // HIGH NEUTRAL -> ANGER IS HIGH ENERGY AND 1 of LOW DANCEABILITY, LOW VALENCE
-  // SAD IS LOW VALENCE AND 1 OF LOW TEMPO, LOW DANCEABILITY
-  var emotions = [], emotion;
-  for (var i = 0; i < songFeatures.length; i++) {
-    var valence = songFeatures[i]["valence"],
-        energy = songFeatures[i]["energy"],
-        danceability = songFeatures[i]["danceability"],
-        tempo = songFeatures[i]["tempo"];
-    if (valence > 0.7) {
-      emotion = "happy";
-    }
-    else if (energy > 0.6 && (danceability < 0.5 || valence < 0.5)) {
-      emotion = "angry";
-    }
-    else if (valence < 0.5 && (tempo < 120 || danceability < 0.5)) {
-      emotion = "sad";
-    } else {
-      emotion = "neutral";
-    }
-    // Push to array
-    emotions.push({'track_href': songFeatures[i]["track_href"], 'emotion': emotion});
-  }
-  return emotions;
-};
-
-var faceToSong = function (songEmotions, face) {
-  if (face === '[]') {
-    return {error: 'YO, NO FACE PUNKASS.'};
-  }
-  // Determine emotion first.
-  // sad -> max_valence=0.5&max_danceability=0.5&max_tempo=142
-  // happy hardcode seeds -> I feel good (0rTkE0FmT4zT2xL6GXwosU), Happy (6NPVjNh8Jhru9xOmyQigds), Call me Maybe (3TGRqZ0a2l1LRblBkJoaDx)
-  // happy -> min_valence=0.8&min_danceability=0.7&min_energy=0.6&min_tempo=120
-  // happy -> 0rTkE0FmT4zT2xL6GXwosU,6NPVjNh8Jhru9xOmyQigds,3TGRqZ0a2l1LRblBkJoaDx,
-  // anger -> max_valence=0.5&max_danceability=0.5&min_energy=0.6&min_tempo=120
-
-};
 
 module.exports = router;
